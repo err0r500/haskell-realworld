@@ -17,24 +17,26 @@ testUser =
     , favorites = []
     }
 
-testArticle = Domain.Article.Article {Domain.Article.id = "articleID", title = "articleTitle"}
+testArticle = Domain.Article.Article {uuid = "articleID", title = "articleTitle", slug = "articleSlug"}
 
 spec :: Spec
-spec = do
+spec =
   describe "testing postArticle" $ do
     it "should return the user returned" $
       Usecases.UC.postArticle
         Usecases.UC.Interactor
           { urw = Usecases.UC.UserReadWriter {userGetByName = \x -> Right (Just testUser {name = x})}
-          , arw = Usecases.UC.ArticleReadWriter {articleGetBySlug = \_ -> Right Nothing}
-          , slugger = Usecases.UC.Slugger {newSlug = \x -> x}
+          , arw =
+              Usecases.UC.ArticleReadWriter
+                {articleGetBySlug = \_ -> Right Nothing, articleCreate = \_ -> Right (Just testArticle)}
+          , slugger = Usecases.UC.Slugger {newSlug = id}
           }
         "matth"
         Domain.Article.Article {} `shouldBe`
-      Just Usecases.UC.PostArticleResp {user = Just testUser, article = Nothing}
+      Right (testUser, testArticle)
     it "should return nothing if error" $
       Usecases.UC.postArticle
         Usecases.UC.Interactor {urw = Usecases.UC.UserReadWriter {userGetByName = \x -> Left "woops"}}
         "matth"
         Domain.Article.Article {} `shouldBe`
-      Nothing
+      Left "woops"

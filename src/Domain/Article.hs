@@ -3,6 +3,7 @@ module Domain.Article
   ) where
 
 data Article = Article
-  { id :: String
+  { uuid :: String
   , title :: String
+  , slug :: String
   } deriving (Show, Eq)

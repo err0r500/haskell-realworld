@@ -1,0 +1,42 @@
+module Implem.URW where
+--  ( userGetByNameConstructor
+--  , UsersStorage(..)
+--  ) where
+
+--import Control.Concurrent.STM
+--import Control.Monad
+--import Domain.User
+--
+--import Control.Monad.Trans.Maybe
+--
+--type UsersStorage = TVar [Domain.User.User]
+--
+--userCreate :: String -> String -> String -> Either String (Maybe Domain.User.User)
+--userCreate username password _ = Left "woops"
+--
+--userGetByNameConstructor :: UsersStorage -> STM (String -> Either String (Maybe Domain.User.User))
+--userGetByNameConstructor users =
+--    do myFunc <- readTVar users
+--      return (\x -> myFunc x)
+
+--      uu <- readTVar users
+--      case uu of
+--      [] -> return $ Left "wooop"
+--      usees ->
+--        let usersWithName = [u | u <- usees]
+--        in case length usersWithName of
+--            0 -> return $ Right Nothing
+--            1 -> return $ Right (Just Domain.User.User {name = "found USer"})
+--            _ -> return $ Left "several users have this username"
+--            )
+--    return myFunc
+
+--makeTranslator :: IO (String -> String)
+--makeTranslator =
+--   do dict <- readDictionary "english-german.dict"
+--      return (\word -> Map.findWithDefault word word dict)
+--
+--main :: IO ()
+--main =
+--   do translate <- makeTranslator
+--      putStr (unlines (map translate ["foo", "bar"]))
